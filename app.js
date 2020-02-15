@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended : true}));
 const errorController = require("./connectors/error");
 const homePageRouter = require('./router/homepage');
 const signUpRouter = require('./router/signup');
+const signInRouter = require('./router/signin');
 
 app.get("/profile", (req, res, next) => {
     res.render("user-profile/profile",{
@@ -27,11 +28,10 @@ app.get('/', homePageRouter);
 
 app.use(signUpRouter);
 
+app.use(signInRouter);
+
 app.use('/',errorController.error);
 
-app.post('/signup',(req, res, next) => {
-    
-});
 
 
 const PORT = process.env.PORT||3000;

@@ -23,6 +23,15 @@ header div a{
     top: 10px;
 }
 
+header div p{
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 600;
+    position: relative;
+    left: 5px;
+    top: 10px;
+}
+
 header div button{
     position: relative;
     left: 1000px;
