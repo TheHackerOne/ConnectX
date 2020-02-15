@@ -5,9 +5,26 @@
 }
 
 body{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
 }
 
 .heading-main{
     font-family: 'Lacquer', sans-serif;
+}
+
+header div img{
+    padding: 10px;
+}
+
+header div a{
+    position: relative;
+    left: 980px;
+    top: 10px;
+}
+
+header div button{
+    position: relative;
+    left: 1000px;
+    top: 10px;
 }

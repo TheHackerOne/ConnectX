@@ -14,19 +14,32 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.urlencoded({ extended : true}));
 
 
-app.use("/profile", (req, res, next) => {
-    res.render("user/profile");
+app.get("/profile", (req, res, next) => {
+    res.render("user/profile",{
+        pageTitle: "username"
+    });
 });
 
-app.use('/',(req, res, next) => {
-    res.render('homepage');
+app.get('/',(req, res, next) => {
+    res.render('homepage/homepage',{
+        pageTitle: "ConnectX"
+    });
 });
 
+app.get('/signup', (req, res, next) => {
+    res.render('signup',{
+        pageTitle: "signup"
+    })
+});
+
+app.use('/', (req, res, next) => {
+    res.render('error',{
+        pageTitle: "404 NOT FOUND"
+    })
+});
 
 
 const PORT = process.env.PORT||3000;
-
-
 
 mongoose
 .connect(
