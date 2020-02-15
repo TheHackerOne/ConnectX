@@ -13,29 +13,24 @@ app.use(express.static(path.join(__dirname,'public')));
 // app.use(express.static(path.join(__dirname,'public','images')));
 app.use(bodyParser.urlencoded({ extended : true}));
 
+const errorController = require("./connectors/error");
+const homePageRouter = require('./router/homepage');
+const signUpRouter = require('./router/signup');
 
 app.get("/profile", (req, res, next) => {
-    res.render("user/profile",{
+    res.render("user-profile/profile",{
         pageTitle: "username"
     });
 });
 
-app.get('/',(req, res, next) => {
-    res.render('homepage/homepage',{
-        pageTitle: "ConnectX"
-    });
-});
+app.get('/', homePageRouter);
 
-app.get('/signup', (req, res, next) => {
-    res.render('signup',{
-        pageTitle: "signup"
-    })
-});
+app.use(signUpRouter);
 
-app.use('/', (req, res, next) => {
-    res.render('error',{
-        pageTitle: "404 NOT FOUND"
-    })
+app.use('/',errorController.error);
+
+app.post('/signup',(req, res, next) => {
+    
 });
 
 
@@ -43,7 +38,7 @@ const PORT = process.env.PORT||3000;
 
 mongoose
 .connect(
-    "mongodb+srv://yashchaudhary:pinacolada@cluster0-kym1f.mongodb.net/test?retryWrites=true&w=majority"
+    "mongodb+srv://yashchaudhary:pinacolada@cluster0-kym1f.mongodb.net/ConnectX?retryWrites=true&w=majority"
 ).then(result => {
     app.listen(PORT, () => {
         console.log(`Successfully Connected To Port ${PORT}`);

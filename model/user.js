@@ -10,6 +10,14 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    user_email:{
+        type: String,
+        required: true
+    },
+    user_password:{
+        type: String,
+        required: true
+    }
     // user_skills: [{
     //     skill_name:{
     //         type: String,
