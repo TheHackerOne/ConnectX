@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    height: 100vh;
+    background-color: #FCFDFD;
+}
+
+header div img{
+    padding: 4px;
+}
+
+header div p{
+    display: inline;
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: -14px;
+    position: relative;
+    left: 5px;
+    top: -25px;
+}

@@ -1,39 +1,40 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    font-family: 'Quicksand', sans-serif;
+body {
+    font-family: "Quicksand", sans-serif;
     font-weight: 500;
 }
 
-.heading-main{
-    font-family: 'Lacquer', sans-serif;
+.heading-main {
+    font-family: "Lacquer", sans-serif;
 }
 
-header div img{
-    padding: 10px;
+header div img {
+    padding: 4px;
 }
 
-header div a{
-    position: relative;
-    left: 980px;
-    top: 10px;
-}
-
-header div p{
+header div p {
     display: inline-block;
     font-size: 30px;
     font-weight: 600;
+    margin-left: -14px;
     position: relative;
-    left: 5px;
-    top: 10px;
+    left: 3px;
+    top: 7px;
 }
 
-header div button{
+header div a {
     position: relative;
-    left: 1000px;
-    top: 10px;
+    left: 920px;
+  /* top: 10px; */
+}
+
+header div button {
+    position: relative;
+    left: 950px;
+  /* top: 10px; */
 }
