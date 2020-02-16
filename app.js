@@ -30,6 +30,10 @@ app.use(signUpRouter);
 
 app.use(signInRouter);
 
+app.use('/credentials', (req, res, next) => {
+    res.render('user-profile/credentials.ejs');
+})
+
 app.use('/',errorController.error);
 
 
