@@ -13,6 +13,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.8.12",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "sweetalert2": "^9.7.2"
   }
 }

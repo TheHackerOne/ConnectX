@@ -37,6 +37,9 @@
                 </div> -->
                 <span>or use your account</span>
                 <input type="email" placeholder="Email" name="email">
+                <%if(text){%>
+                    <p class="error-message"><%= text %></p>
+                    <% }else{} %>
                 <input type="password" placeholder="Password" name="password">
                 <a href="#">Forgot your password?</a>
                 <button>Sign In</button>

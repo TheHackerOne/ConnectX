@@ -2,7 +2,8 @@ const user = require('../model/user');
 
 exports.getSignUp = (req, res, next) => {
     res.render('signup', {
-        pageTitle: "signup"
+        pageTitle: "signup",
+        text: null
     })
 };
 
