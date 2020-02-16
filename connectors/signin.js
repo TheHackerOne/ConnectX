@@ -3,6 +3,7 @@ const user = require('../model/user');
 exports.postSignIn = (req, res, next) => {
     const user_email = req.body.email;
     const user_password = req.body.password;
+    
     user
     .find()
     .then(user => {

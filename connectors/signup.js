@@ -3,7 +3,8 @@ const user = require('../model/user');
 exports.getSignUp = (req, res, next) => {
     res.render('signup', {
         pageTitle: "signup",
-        text: null
+        text: null,
+        error: false
     })
 };
 
@@ -24,6 +25,11 @@ exports.postSignUp = (req, res, next) => {
         res.redirect('/');
     })
     .catch(err => {
-        console.log(err);
+        console.log("userid already in use");
+        res.render('signup', {
+            pageTitle: 'signup',
+            error: true,
+            text: null
+        })
     })
 };
