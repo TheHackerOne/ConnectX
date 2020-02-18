@@ -5,18 +5,19 @@ exports.postSignIn = (req, res, next) => {
     const user_password = req.body.password;
     
     user
-    .find()
+    .findOne({user_email: user_email, user_password: user_password })
     .then(user => {
-        console.log(user);
-        let single_user = [];
-        single_user = user.filter(a => a.user_email == user_email && a.user_password == user_password );
-        console.log(single_user);
-        if(single_user.length==1){
-            res.redirect('/credentials');
+        if(user){
+            // console.log(user._id.toString());
+            req.session.isloggedin = true;
+            const url = `/credentials/${user._id}`;
+            console.log(url);
+            res.redirect(url);
         }else{
             res.render('signup',{
                 pageTitle: "Signin",
-                text : "NO USER FOUND!! TRY SIGNUP ->"
+                text : "NO USER FOUND!! TRY SIGNUP ->",
+                error: false
             })
     }
     })

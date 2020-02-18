@@ -2,8 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const session = require('express-session');
+const mongoDBStore = require('connect-mongodb-session')(session);
+
+const URI = "mongodb+srv://yashchaudhary:pinacolada@cluster0-kym1f.mongodb.net/ConnectX?retryWrites=true&w=majority";
 
 const app = express();
+
+const store = new mongoDBStore({
+    uri: URI,
+    collection: "sessions"
+});
 
 app.set('view engine', 'ejs');
 app.set('views','views');
@@ -17,6 +26,18 @@ const errorController = require("./connectors/error");
 const homePageRouter = require('./router/homepage');
 const signUpRouter = require('./router/signup');
 const signInRouter = require('./router/signin');
+const credentialsRouter = require('./router/credentials');
+
+
+
+app.use(
+    session({
+        secret: "kserkgvjbeskjvb.esbvlbksejvsejbfv,sjbvkjsdkj.bvkaebsvksev",
+        saveUninitialized: false,
+        resave: false,
+        store: store
+    })
+)
 
 app.get("/profile", (req, res, next) => {
     res.render("user-profile/profile",{
@@ -30,9 +51,7 @@ app.use(signUpRouter);
 
 app.use(signInRouter);
 
-app.use('/credentials', (req, res, next) => {
-    res.render('user-profile/credentials.ejs');
-})
+app.use(credentialsRouter);
 
 app.use('/',errorController.error);
 
@@ -42,7 +61,7 @@ const PORT = process.env.PORT||3000;
 
 mongoose
 .connect(
-    "mongodb+srv://yashchaudhary:pinacolada@cluster0-kym1f.mongodb.net/ConnectX?retryWrites=true&w=majority"
+    URI
 ).then(result => {
     app.listen(PORT, () => {
         console.log(`Successfully Connected To Port ${PORT}`);
