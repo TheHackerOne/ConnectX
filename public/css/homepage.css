@@ -19,9 +19,9 @@ header div img {
 
 header div p {
     display: inline-block;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 600;
-    margin-left: -14px;
+    margin-left: -18px;
     position: relative;
     left: 3px;
     top: 7px;
@@ -29,12 +29,25 @@ header div p {
 
 header div a {
     position: relative;
-    left: 920px;
+    left: 960px;
   /* top: 10px; */
 }
 
 header div button {
     position: relative;
-    left: 950px;
+    left: 980px;
   /* top: 10px; */
+}
+
+.logout-form{
+    display: inline-block;
+}
+
+.logout-form button{
+    background: none !important;
+    border: none;
+    padding: 4px;
+    border-radius: 7px;
+    cursor: pointer;
+    /* text-decoration: underline; */
 }

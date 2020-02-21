@@ -1,4 +1,5 @@
 const User = require("../model/user");
+const Profile = require("../model/profile")
 const bcrypt = require('bcrypt');
 
 
@@ -96,3 +97,41 @@ exports.getCredentials = (req, res, next) => {
         isloggedin: req.session.isloggedin
     });
 };
+
+exports.postCredentials = (req, res, next) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const phoneNo = req.body.phoneNo;
+    const password = req.body.password;
+    const userName = req.body.userName;
+
+    bcrypt.compare(password, req.session.user.password)
+        .then(doMatch => {
+            if(doMatch){
+            const profile = new Profile({
+                firstName: firstName,
+                lastName: lastName,
+                userName: userName,
+                phoneNo: phoneNo,
+                password: password,
+                userId: req.user
+            });
+            return profile.save().then(result => {
+                console.log('Profile Successfully made!!')
+                return res.redirect('/');
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+        return res.redirect('/')
+    })
+    .catch(err => console.log(err))
+}
+
+exports.postLogOut = (req, res, next) => {
+    req.session.destroy(err => {
+        console.log(err);
+        return res.redirect('/')
+    })
+}

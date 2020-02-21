@@ -13,5 +13,8 @@ router.post("/login", authenticationController.postLogIn);
 
 router.get('/credentials', isAuth.authenticated, authenticationController.getCredentials);
 
+router.post('/credentials', authenticationController.postCredentials);
+
+router.post('/logout', authenticationController.postLogOut )
 
 module.exports = router;

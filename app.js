@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const session = require('express-session');
 const mongoDBStore = require('connect-mongodb-session')(session);
+const User = require('./model/user');
 
 const URI = "mongodb+srv://yashchaudhary:pinacolada@cluster0-kym1f.mongodb.net/ConnectX?retryWrites=true&w=majority";
 
@@ -27,8 +28,6 @@ const homePageRouter = require('./router/homepage');
 const authRouter = require('./router/authentication');
 
 
-
-
 app.use(
     session({
         secret: "kserkgvjbeskjvb.esbvlbksejvsejbfv,sjbvkjsdkj.bvkaebsvksev",
@@ -37,6 +36,18 @@ app.use(
         store: store
     })
 )
+
+app.use((req, res, next) => {
+    if(!req.session.user){
+        return next()
+    }
+    User.findById(req.session.user._id)
+    .then(user => {
+        req.user = user;
+        next();
+    })
+    .catch(err => console.log(err))
+})
 
 app.get("/profile", (req, res, next) => {
     res.render("user-profile/profile",{

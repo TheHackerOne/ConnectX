@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConnectX</title>
+    <title><%= pageTitle %>></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -16,14 +16,18 @@
 <body>
     <header>
         <div>
-            <img src="images/logo.png" alt="" width="80px" height="auto">
+            <img src="images/logo.png" alt="" width="70px" height="auto">
             <p>ConnectX</p>
-            <a href="signup">Sign In</a>
+            <% if(!session){ %>
+                <a href="/signup">Sign In</a>
+            <% }else{%>
+                    <form action="/logout" method="POST" class="logout-form">
+                        <button type="submit" >Logout</button>
+                    </form>
+            <% } %>
             <button class="btn btn-primary">Get Started</button>
         </div>
     </header>
 
-
-    
 </body>
 </html>
