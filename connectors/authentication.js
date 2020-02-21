@@ -1,5 +1,5 @@
 const User = require("../model/user");
-const Profile = require("../model/profile")
+const Profile = require("../model/profile");
 const bcrypt = require('bcrypt');
 
 
@@ -119,7 +119,7 @@ exports.postCredentials = (req, res, next) => {
             });
             return profile.save().then(result => {
                 console.log('Profile Successfully made!!')
-                return res.redirect('/profile');
+                return res.redirect(`/profile/${req.user._id}`);
             })
             .catch(err => {
                 console.log(err);
@@ -139,3 +139,4 @@ exports.postLogOut = (req, res, next) => {
         return res.redirect('/')
     })
 }
+

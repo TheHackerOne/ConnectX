@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const session = require('express-session');
+const csrf = require('csurf');
 const mongoDBStore = require('connect-mongodb-session')(session);
 const User = require('./model/user');
 
@@ -14,19 +15,18 @@ const store = new mongoDBStore({
     uri: URI,
     collection: "sessions"
 });
+const csrfProtection = csrf();
 
 app.set('view engine', 'ejs');
 app.set('views','views');
 
 app.use(express.static(path.join(__dirname,'public')));
-// app.use(express.static(path.join(__dirname, "public", "images")));
-// app.use(express.static(path.join(__dirname,'public','images')));
 app.use(bodyParser.urlencoded({ extended : true}));
 
 const errorController = require("./connectors/error");
 const homePageRouter = require('./router/homepage');
 const authRouter = require('./router/authentication');
-
+const profileRouter = require('./router/user-profile');
 
 app.use(
     session({
@@ -36,6 +36,8 @@ app.use(
         store: store
     })
 )
+
+app.use(csrfProtection);
 
 app.use((req, res, next) => {
     if(!req.session.user){
@@ -49,13 +51,15 @@ app.use((req, res, next) => {
     .catch(err => console.log(err))
 })
 
-app.get("/profile", (req, res, next) => {
-    res.render("user-profile/profile",{
-        pageTitle: "username"
-    });
-});
+app.use((req, res, next) => {
+    res.locals.isloggedin = req.session.isloggedin;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+})
 
 app.get('/', homePageRouter);
+
+app.use(profileRouter);
 
 app.use(authRouter);
 
