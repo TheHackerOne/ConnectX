@@ -9,6 +9,7 @@
   "author": "yash chaudhary",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
     "connect-mongodb-session": "^2.3.1",

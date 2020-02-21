@@ -1,4 +1,5 @@
 const User = require("../model/user");
+const bcrypt = require('bcrypt');
 
 
 exports.getSignUp = (req, res, next) => {
@@ -21,20 +22,27 @@ exports.postSignUp = (req, res, next) => {
                 error: true
             })
         }
-        const newUser = new User({
-        name: user_name,
-        year: user_year,
-        email: user_email,
-        password: user_password
-        });
-        newUser.save()
-            .then(result => {
-            console.log("USER SUCCESSFULLY ADDDED TO THE DATABASE");
-            res.redirect("/login");
-            })
-            .catch(err => {
-            console.log(err);
+        bcrypt.hash(user_password, 12)
+        .then(hashedPassword => {
+            const newUser = new User({
+                name: user_name,
+                year: user_year,
+                email: user_email,
+                password: hashedPassword
             });
+            newUser
+                .save()
+                .then(result => {
+                    console.log("USER SUCCESSFULLY ADDDED TO THE DATABASE");
+                    res.redirect("/login");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+        })
     })
     .catch(err => console.log(err))
 }
@@ -51,20 +59,29 @@ exports.postLogIn = (req, res, next) => {
     const user_password = req.body.password;
 
     User
-        .findOne({ email: user_email, password: user_password })
+        .findOne({ email: user_email })
         .then(user => {
-        if (user) {
-            req.session.isloggedin = true;
-            req.session.user = user;
-            // const url = `/credentials/${user._id}`;
-            // console.log(url);
-            return res.redirect('/credentials');
-        }
-        res.render("/login", {
-            pageTitle: "login",
-            error: true
-        });
-        
+            if (!user) {
+                return res.render("auth/login", {
+                    pageTitle: "login",
+                    error: true
+                });
+            }
+            const pass = user.password;
+            bcrypt.compare(user_password, pass)
+            .then(doMatch => {
+                if(doMatch){
+                    req.session.isloggedin = true;
+                    req.session.user = user;
+                    return res.redirect("/credentials");
+                }
+                return res.render("auth/login", {
+                    pageTitle: "login",
+                    error: true
+                });
+
+            })
+            .catch(err => console.log(err));    
         })
         .catch(err => {
         console.log(err);
