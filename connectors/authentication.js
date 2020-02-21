@@ -92,9 +92,10 @@ exports.postLogIn = (req, res, next) => {
 exports.getCredentials = (req, res, next) => {
     const userId = req.params.userId;
     console.log(userId);
-    res.render("user-profile/credentials.ejs", {
+    res.render("auth/credentials.ejs", {
         id: userId,
-        isloggedin: req.session.isloggedin
+        isloggedin: req.session.isloggedin,
+        error: false
     });
 };
 
@@ -118,13 +119,16 @@ exports.postCredentials = (req, res, next) => {
             });
             return profile.save().then(result => {
                 console.log('Profile Successfully made!!')
-                return res.redirect('/');
+                return res.redirect('/profile');
             })
             .catch(err => {
                 console.log(err);
             })
         }
-        return res.redirect('/')
+        return res.render("auth/credentials", {
+            error: true,
+            isloggedin: req.session.isloggedin
+        });
     })
     .catch(err => console.log(err))
 }
