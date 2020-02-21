@@ -12,9 +12,6 @@
 <body>
     
     <center><h1>Sign up</h1></center>
-    <% if(error){ %>
-        <h3>Username Already Exist!!</h3>
-        <% } %>
     <div class="form-container">
         <form action="/signup" class="form" method="POST">
             <input type="text" name="name" placeholder="Name">
@@ -33,7 +30,7 @@
                     footer: '<a href>Why do I have this issue?</a>'
                 })
                 </script>
-            <% }else{ console.log("nothing")} %>
+            <% }%>
         </div>
     </div>
     

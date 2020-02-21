@@ -14,6 +14,18 @@
             <input type="password" name="password" placeholder="Password">
             <button type="submit">login</button>
         </form>
+        </div>
+        <% if(error){ %>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Invalid email or password !! Try signup',
+                footer: '<a href>Why do I have this issue?</a>'
+            })
+        </script>
+        <% }%>
+        </div>
     </div>
 </body>
 </html>
