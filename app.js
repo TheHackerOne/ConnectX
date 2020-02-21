@@ -24,9 +24,8 @@ app.use(bodyParser.urlencoded({ extended : true}));
 
 const errorController = require("./connectors/error");
 const homePageRouter = require('./router/homepage');
-const signUpRouter = require('./router/signup');
-const signInRouter = require('./router/signin');
-const credentialsRouter = require('./router/credentials');
+const authRouter = require('./router/authentication');
+
 
 
 
@@ -47,11 +46,7 @@ app.get("/profile", (req, res, next) => {
 
 app.get('/', homePageRouter);
 
-app.use(signUpRouter);
-
-app.use(signInRouter);
-
-app.use(credentialsRouter);
+app.use(authRouter);
 
 app.use('/',errorController.error);
 
