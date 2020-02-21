@@ -6,7 +6,9 @@ router.get("/signup", authenticationController.getSignUp);
 
 router.post("/signup", authenticationController.postSignUp);
 
-router.post("/signin", authenticationController.postSignIn);
+router.get("/login", authenticationController.getLogIn);
+
+router.post("/login", authenticationController.postLogIn);
 
 router.get('/credentials/:userId', authenticationController.getCredentials);
 

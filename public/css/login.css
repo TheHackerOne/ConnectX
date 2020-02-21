@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
+.form-wrapper{
+    text-align: center;
+}
+
+.form input{
+    display: block;
+    width: 300px;
+    margin: auto;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.form button{
+    padding: 8px;
+    color: white;
+    background-color: cornflowerblue;
+    border-radius: 6px;
+}
+
+.form button:hover,
+.form button:active{
+    color: cornsilk;
+    background-color: darkcyan;
+    padding: 9px;
+}
+

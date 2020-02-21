@@ -1,10 +1,9 @@
-const user = require("../model/user");
+const User = require("../model/user");
 
 
 exports.getSignUp = (req, res, next) => {
-    res.render("signup", {
+    res.render("auth/signup", {
         pageTitle: "signup",
-        text: null,
         error: false
     });
 };
@@ -14,28 +13,39 @@ exports.postSignUp = (req, res, next) => {
     const user_year = req.body.year;
     const user_email = req.body.email;
     const user_password = req.body.password;
-    const User = new user({
-        user_name: user_name,
-        user_year: user_year,
-        user_email: user_email,
-        user_password: user_password
+    User.findOne({email: user_email})
+    .then(user => {
+        if(user){
+            return res.render('auth/signup',{
+                error: true
+            })
+        }
+        const newUser = new User({
+        name: user_name,
+        year: user_year,
+        email: user_email,
+        password: user_password
+        });
+        newUser.save()
+            .then(result => {
+            console.log("USER SUCCESSFULLY ADDDED TO THE DATABASE");
+            res.redirect("/login");
+            })
+            .catch(err => {
+            console.log(err);
+            });
+    })
+    .catch(err => console.log(err))
+}
+    
+exports.getLogIn = (req, res, next) => {
+    res.render("auth/login", {
+        pageTitle: "Login",
+        error: false
     });
-    User.save()
-        .then(result => {
-        console.log("USER SUCCESSFULLY ADDDED TO THE DATABASE");
-        res.redirect("/");
-        })
-        .catch(err => {
-        console.log("userid already in use");
-        res.render("signup", {
-            pageTitle: "signup",
-            error: true,
-            text: null
-        });
-        });
-    };
+};
 
-exports.postSignIn = (req, res, next) => {
+exports.postLogIn = (req, res, next) => {
     const user_email = req.body.email;
     const user_password = req.body.password;
 
