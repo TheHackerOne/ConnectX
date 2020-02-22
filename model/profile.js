@@ -10,15 +10,19 @@ const profileSchema = new Schema({
         type: String,
         required: true
     },
+    year: {
+        type: String,
+        required: true
+    },
+    imagePath: {
+        type: String,
+        required: true
+    },
     phoneNo: {
         type: Number,
         required: true
     },
     userName: {
-        type: String,
-        required: true
-    },
-    password: {
         type: String,
         required: true
     },

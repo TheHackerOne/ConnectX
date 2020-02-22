@@ -16,18 +16,16 @@
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button type="submit">login</button>
         </form>
-        </div>
-        <% if(error){ %>
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Invalid email or password !! Try again',
-                footer: '<a href>Why do I have this issue?</a>'
-            })
-        </script>
-        <% }%>
-        </div>
     </div>
+    <% if(error){ %>
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid email or password !! Try again',
+            footer: '<a href>Why do I have this issue?</a>'
+        })
+    </script>
+    <% }%>
 </body>
 </html>

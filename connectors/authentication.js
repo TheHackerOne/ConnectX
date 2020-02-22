@@ -12,7 +12,6 @@ exports.getSignUp = (req, res, next) => {
 
 exports.postSignUp = (req, res, next) => {
     const user_name = req.body.name;
-    const user_year = req.body.year;
     const user_email = req.body.email;
     const user_password = req.body.password;
     User.findOne({email: user_email})
@@ -27,7 +26,6 @@ exports.postSignUp = (req, res, next) => {
         .then(hashedPassword => {
             const newUser = new User({
                 name: user_name,
-                year: user_year,
                 email: user_email,
                 password: hashedPassword
             });
@@ -100,11 +98,16 @@ exports.getCredentials = (req, res, next) => {
 };
 
 exports.postCredentials = (req, res, next) => {
+
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const phoneNo = req.body.phoneNo;
+    const image = req.file;
+    const year = req.body.year;
     const password = req.body.password;
     const userName = req.body.userName;
+    const imageUrl = image.path;
+    console.log(imageUrl);
 
     bcrypt.compare(password, req.session.user.password)
         .then(doMatch => {
@@ -112,13 +115,15 @@ exports.postCredentials = (req, res, next) => {
             const profile = new Profile({
                 firstName: firstName,
                 lastName: lastName,
+                year: year,
+                imagePath: imageUrl,
                 userName: userName,
                 phoneNo: phoneNo,
-                password: password,
                 userId: req.user
             });
             return profile.save().then(result => {
                 console.log('Profile Successfully made!!')
+                console.log(image.path)
                 return res.redirect(`/profile/${req.user._id}`);
             })
             .catch(err => {
