@@ -41,7 +41,7 @@ app.set('views','views');
 app.use(express.static(path.join(__dirname,'public')));
 app.use('/image',express.static(path.join(__dirname,'image')));
 app.use(bodyParser.urlencoded({ extended : true}));
-app.use(multer({storage: storage, fileFilter: fileFilter}).single('profilePic'))
+app.use(multer({storage: storage, fileFilter: fileFilter}).single('profilePic'));
 
 const errorController = require("./connectors/error");
 const homePageRouter = require('./router/homepage');

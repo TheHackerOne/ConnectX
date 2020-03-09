@@ -124,6 +124,7 @@ exports.postCredentials = (req, res, next) => {
             return profile.save().then(result => {
                 console.log('Profile Successfully made!!')
                 console.log(image.path)
+                req.session.filledCredentials = true;
                 return res.redirect(`/profile/${req.user._id}`);
             })
             .catch(err => {
